@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TDAKOI — Dépistage TDAH Adulte / Adult ADHD Screening</title>
+
+<!-- Favicon spiral SVG -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%231B4F5A'/%3E%3Cpath d='M16 8 C20.4 8 24 11.6 24 16 C24 19.5 21.8 22.5 18.7 23.7 C17.9 24 17 24.1 16.1 24 C12.2 23.6 9.2 20.3 9.2 16.3 C9.2 13.1 11.1 10.4 13.8 9.2 C14.4 9 15 8.9 15.6 8.9 C18.5 8.9 20.9 11 21.3 13.8 C21.5 15 21.1 16.2 20.3 17.1 C19.5 18 18.3 18.6 17 18.6 C15.4 18.6 14.1 17.4 14.1 15.9 C14.1 14.7 14.9 13.7 16 13.4' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E">
+
+<!-- Primary SEO -->
+<meta name="description" content="TDAKOI — Questionnaire de dépistage du TDAH adulte en 30 questions. Résultat immédiat, rapport PDF téléchargeable. Outil informatif bilingue français/anglais, sans compte requis.">
+<meta name="keywords" content="TDAH adulte, dépistage TDAH, test TDAH, ADHD screening, adult ADHD, questionnaire TDAH, inattention, hyperactivité, impulsivité, DSM-5">
+<meta name="author" content="TDAKOI">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://zflorine.github.io/tdakoi/">
+
+<!-- Open Graph (social sharing) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zflorine.github.io/tdakoi/">
+<meta property="og:title" content="TDAKOI — Dépistage TDAH Adulte">
+<meta property="og:description" content="30 questions pour explorer si vos difficultés d'attention ou d'impulsivité correspondent aux critères du TDAH adulte. Résultat immédiat, rapport PDF téléchargeable. Anonyme, sans compte.">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_GB">
+<meta property="og:site_name" content="TDAKOI">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:url" content="https://zflorine.github.io/tdakoi/">
+<meta name="twitter:title" content="TDAKOI — Dépistage TDAH Adulte">
+<meta name="twitter:description" content="30 questions pour explorer si vos difficultés d'attention ou d'impulsivité correspondent aux critères du TDAH adulte. Résultat immédiat, anonyme, sans compte.">
+
+<!-- Structured data (Schema.org) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "TDAKOI",
+  "url": "https://zflorine.github.io/tdakoi/",
+  "description": "Questionnaire de dépistage du TDAH adulte en 30 questions. Outil informatif bilingue français/anglais, résultat immédiat, rapport PDF téléchargeable, sans compte requis.",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "inLanguage": ["fr", "en"],
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0" },
+  "about": {
+    "@type": "MedicalCondition",
+    "name": "Trouble du déficit de l'attention avec ou sans hyperactivité (TDAH)",
+    "alternateName": "Attention Deficit Hyperactivity Disorder (ADHD)"
+  }
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --petrol: #1B4F5A;
+    --petrol-mid: #2A7080;
+    --petrol-light: #3D9BAD;
+    --petrol-pale: #E8F4F6;
+    --petrol-bg: #F0F8FA;
+    --white: #FFFFFF;
+    --grey-soft: #F4F7F8;
+    --grey-border: #DDE8EA;
+    --grey-text: #6B7E82;
+    --dark: #0F2D34;
+    --warn: #C0392B;
+    --ok: #1B8060;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--white);
+    color: var(--dark);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--grey-border);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    color: var(--petrol);
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .nav-logo:hover { color: var(--petrol-mid); }
+  .lang-toggle {
+    display: flex; gap: 0; border: 1px solid var(--grey-border); border-radius: 6px; overflow: hidden;
+  }
+  .lang-btn {
+    background: none; border: none; padding: 6px 14px;
+    font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 500;
+    cursor: pointer; color: var(--grey-text); transition: all 0.2s;
+  }
+  .lang-btn.active { background: var(--petrol); color: white; }
+
+  /* SCREENS */
+  .screen { display: none; padding-top: 56px; min-height: 100vh; }
+  .screen.active { display: block; }
+
+  /* HERO */
+  #screen-home {
+    display: none;
+    background: linear-gradient(160deg, var(--white) 0%, var(--petrol-bg) 100%);
+  }
+  #screen-home.active { display: flex; flex-direction: column; }
+
+  .hero {
+    flex: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 5rem 2rem 3rem;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--petrol-mid);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.15;
+    color: var(--petrol);
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--petrol-mid); }
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--grey-text);
+    max-width: 480px;
+    margin: 0 auto 2.5rem;
+    font-weight: 300;
+  }
+
+  .btn-primary {
+    background: var(--petrol);
+    color: white;
+    border: none;
+    padding: 14px 36px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.01em;
+  }
+  .btn-primary:hover { background: var(--petrol-mid); transform: translateY(-1px); }
+
+  .hero-meta {
+    margin-top: 2rem;
+    display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
+  }
+  .hero-meta span {
+    font-size: 0.8rem;
+    color: var(--grey-text);
+    display: flex; align-items: center; gap: 7px;
+  }
+  .hero-meta span svg { color: var(--petrol-light); flex-shrink: 0; }
+
+  .disclaimer-home {
+    background: var(--petrol-pale);
+    border-top: 1px solid var(--grey-border);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--grey-text);
+    line-height: 1.7;
+  }
+  .disclaimer-home strong { color: var(--petrol); }
+
+  /* QUIZ */
+  #screen-quiz { background: var(--white); }
+
+  .quiz-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--grey-border);
+    padding: 1.25rem 2rem;
+    position: sticky; top: 56px; z-index: 50;
+  }
+  .progress-top {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 0.75rem;
+  }
+  .progress-label { font-size: 0.8rem; color: var(--grey-text); font-weight: 500; }
+  .progress-count { font-size: 0.8rem; color: var(--petrol); font-weight: 600; }
+  .progress-bar-wrap {
+    height: 4px;
+    background: var(--grey-border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--petrol), var(--petrol-light));
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .quiz-body {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+  }
+
+  .question-block { display: none; }
+  .question-block.active { display: block; animation: fadeIn 0.3s ease; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .q-section-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--petrol-mid);
+    background: var(--petrol-pale);
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 1.25rem;
+  }
+
+  .q-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem;
+    line-height: 1.4;
+    color: var(--dark);
+    margin-bottom: 2rem;
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  .option-btn {
+    background: var(--grey-soft);
+    border: 1.5px solid var(--grey-border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .option-btn:hover { border-color: var(--petrol-mid); background: var(--petrol-pale); }
+  .option-btn.selected { border-color: var(--petrol); background: var(--petrol-pale); }
+  .option-btn .opt-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--petrol-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+  }
+  .option-btn .opt-text {
+    font-size: 0.9rem;
+    color: var(--dark);
+    font-weight: 400;
+  }
+
+  .quiz-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 1rem;
+  }
+  .btn-back {
+    background: none;
+    border: 1.5px solid var(--grey-border);
+    color: var(--grey-text);
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-back:hover { border-color: var(--petrol); color: var(--petrol); }
+  .btn-next {
+    background: var(--petrol);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .btn-next.enabled { opacity: 1; pointer-events: auto; }
+  .btn-next.enabled:hover { background: var(--petrol-mid); }
+
+  /* RESULTS */
+  #screen-result { background: var(--petrol-bg); }
+
+  .result-wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+  }
+
+  .result-header { text-align: center; margin-bottom: 2.5rem; }
+  .result-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    color: var(--petrol);
+    margin-bottom: 0.5rem;
+  }
+  .result-header p { color: var(--grey-text); font-size: 0.9rem; }
+
+  .score-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .score-card {
+    background: white;
+    border: 1px solid var(--grey-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .score-card .sc-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--grey-text);
+    margin-bottom: 0.5rem;
+  }
+  .score-card .sc-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--petrol);
+    line-height: 1;
+  }
+  .score-card .sc-max { font-size: 0.85rem; color: var(--grey-text); }
+  .score-card .sc-bar {
+    margin-top: 0.75rem;
+    height: 6px;
+    background: var(--grey-border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .score-card .sc-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--petrol);
+    transition: width 0.6s ease 0.3s;
+  }
+
+  .result-profile {
+    background: white;
+    border: 1px solid var(--grey-border);
+    border-radius: 14px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .profile-tag {
+    display: inline-block;
+    background: var(--petrol);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+  }
+  .profile-tag.low { background: var(--ok); }
+  .profile-tag.moderate { background: #E67E22; }
+  .profile-tag.high { background: var(--warn); }
+
+  .profile-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--petrol);
+    margin-bottom: 0.75rem;
+  }
+  .profile-desc {
+    font-size: 0.9rem;
+    color: #3D5560;
+    line-height: 1.75;
+  }
+
+  .result-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .result-section-card {
+    background: white;
+    border: 1px solid var(--grey-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  .rsc-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--petrol-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 0.5rem;
+  }
+  .rsc-score {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    color: var(--petrol);
+  }
+  .rsc-score span { font-size: 0.9rem; color: var(--grey-text); }
+  .rsc-bar { margin: 0.5rem 0; height: 5px; background: var(--grey-border); border-radius: 3px; overflow: hidden; }
+  .rsc-bar-fill { height: 100%; border-radius: 3px; background: var(--petrol-mid); }
+  .rsc-desc { font-size: 0.82rem; color: var(--grey-text); line-height: 1.6; }
+
+  .result-disclaimer {
+    background: #FEF9F0;
+    border: 1px solid #FCDFA0;
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    font-size: 0.82rem;
+    color: #6B5500;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  .result-disclaimer strong { color: #4A3A00; }
+
+  .result-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+  }
+  .btn-pdf {
+    background: var(--petrol);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn-pdf:hover { background: var(--petrol-mid); transform: translateY(-1px); }
+  .btn-restart {
+    background: none;
+    border: 1.5px solid var(--grey-border);
+    color: var(--grey-text);
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-restart:hover { border-color: var(--petrol); color: var(--petrol); }
+
+  @media (max-width: 540px) {
+    .score-grid { grid-template-columns: 1fr; }
+    .result-sections { grid-template-columns: 1fr; }
+    .options-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" onclick="restartQuiz()">TDAKOI</a>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-fr" onclick="setLang('fr')">FR</button>
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="screen-home" class="screen active">
+  <div class="hero">
+    <p class="hero-eyebrow" data-t="eyebrow">Dépistage · Adulte · TDAH</p>
+    <h1 data-t="h1">Votre cerveau fonctionne <em>autrement</em> ?</h1>
+    <p class="hero-sub" data-t="sub">30 questions pour explorer si vos difficultés d'attention ou d'impulsivité correspondent aux critères du TDAH adulte. Résultat immédiat, rapport téléchargeable.</p>
+    <button class="btn-primary" onclick="startQuiz()" data-t="start">Commencer le questionnaire</button>
+    <div class="hero-meta">
+      <span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        <span data-t="m1">30 questions</span>
+      </span>
+      <span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span data-t="m2">~8 minutes</span>
+      </span>
+      <span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span data-t="m3">Anonyme, sans compte</span>
+      </span>
+    </div>
+  </div>
+  <div class="disclaimer-home" data-t="disclaimerHome">
+    <strong>Avertissement :</strong> ce questionnaire est un outil de dépistage, <em>pas un diagnostic médical</em>. Seul un psychiatre ou neuropsychologue peut poser un diagnostic de TDAH. Si vos résultats vous interpellent, consultez un professionnel de santé.
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="screen-quiz" class="screen">
+  <div class="quiz-header">
+    <div class="progress-top">
+      <span class="progress-label" id="progress-section-label"></span>
+      <span class="progress-count" id="progress-count">1 / 30</span>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progress-bar"></div>
+    </div>
+  </div>
+  <div class="quiz-body" id="quiz-body"></div>
+</div>
+
+<!-- RESULT -->
+<div id="screen-result" class="screen">
+  <div class="result-wrap" id="result-content"></div>
+</div>
+
+<script>
+// ─── TRANSLATIONS ────────────────────────────────────────────────────────────
+const T = {
+  fr: {
+    eyebrow: "Dépistage · Adulte · TDAH",
+    h1: 'Votre cerveau fonctionne <em>autrement</em> ?',
+    sub: "30 questions pour explorer si vos difficultés d'attention ou d'impulsivité correspondent aux critères du TDAH adulte. Résultat immédiat, rapport téléchargeable.",
+    start: "Commencer le questionnaire",
+    m1: "30 questions",
+    m2: "~5 minutes",
+    m3: "Anonyme, sans compte",
+    disclaimerHome: "<strong>Avertissement :</strong> ce questionnaire est un outil de dépistage, <em>pas un diagnostic médical</em>. Seul un psychiatre ou neuropsychologue peut poser un diagnostic de TDAH. Si vos résultats vous interpellent, consultez un professionnel de santé.",
+    sections: ["Inattention", "Hyperactivité / Impulsivité", "Impact fonctionnel"],
+    opts: ["Jamais / Rarement", "Parfois", "Souvent", "Très souvent"],
+    back: "Précédent",
+    next: "Suivant",
+    finish: "Voir mes résultats",
+    progressIn: "Inattention",
+    progressHI: "Hyperactivité / Impulsivité",
+    progressFX: "Impact fonctionnel",
+    resultTitle: "Résultats de votre dépistage",
+    resultSub: "Basé sur les critères DSM-5 — Adultes",
+    totalLabel: "Score global",
+    inLabel: "Inattention",
+    hiLabel: "Hyperactivité/Impulsivité",
+    fxLabel: "Impact fonctionnel",
+    downloadBtn: "Télécharger le rapport PDF",
+    restartBtn: "Recommencer",
+    disclaimerResult: "<strong>Rappel important :</strong> ce score est indicatif. Il ne remplace pas une évaluation clinique complète. Si vous obtenez un score élevé, parlez-en à votre médecin généraliste ou demandez un bilan neuropsychologique.",
+    profiles: {
+      low: { tag: "Peu de signaux", title: "Profil peu évocateur de TDAH", desc: "Vos réponses ne suggèrent pas de présence significative de symptômes TDAH. Cela ne signifie pas l'absence de toute difficulté — certaines conditions (anxiété, troubles du sommeil, burn-out) peuvent générer des symptômes similaires." },
+      mod_in: { tag: "Signaux modérés", title: "Profil évocateur d'un TDAH à prédominance inattentive", desc: "Vous présentez un niveau notable de difficultés attentionnelles sans hyperactivité marquée. Ce profil correspond au TDAH-PI (Principalement Inattentif), fréquemment sous-diagnostiqué chez l'adulte." },
+      mod_hi: { tag: "Signaux modérés", title: "Profil évocateur d'un TDAH à prédominance hyperactive-impulsive", desc: "Vous présentez principalement des difficultés liées à l'agitation, l'impulsivité et la régulation comportementale. Ce profil peut bénéficier d'une évaluation spécialisée." },
+      mod_c: { tag: "Signaux modérés", title: "Profil évocateur d'un TDAH de type combiné", desc: "Vous présentez des difficultés à la fois attentionnelles et hyper-impulsives. Ce profil combiné est l'un des plus courants et mérite une évaluation professionnelle approfondie." },
+      high_in: { tag: "Signaux élevés", title: "Profil fortement évocateur d'un TDAH inattentif", desc: "Vos scores d'inattention sont significativement élevés. Ces difficultés peuvent avoir un impact important sur votre vie professionnelle et personnelle. Une consultation spécialisée est vivement recommandée." },
+      high_hi: { tag: "Signaux élevés", title: "Profil fortement évocateur d'un TDAH hyperactif-impulsif", desc: "Vos scores d'hyperactivité et d'impulsivité sont significativement élevés. Ces difficultés sont invalidantes et méritent une évaluation clinique par un spécialiste." },
+      high_c: { tag: "Signaux élevés", title: "Profil fortement évocateur d'un TDAH combiné", desc: "Vos scores sont élevés dans les deux dimensions — inattention et hyperactivité/impulsivité — ainsi que sur l'impact fonctionnel. Un bilan neuropsychologique complet est fortement recommandé." },
+    },
+    secDescs: {
+      in: { low: "Peu de difficultés attentionnelles détectées.", mod: "Difficultés attentionnelles notables (oublis, distractibilité, organisation).", high: "Difficultés attentionnelles marquées affectant le quotidien." },
+      hi: { low: "Peu d'agitation ou d'impulsivité signalées.", mod: "Agitation et/ou impulsivité modérées.", high: "Hyperactivité et impulsivité significatives." },
+      fx: { low: "Faible impact sur le fonctionnement quotidien.", mod: "Impact modéré sur la vie professionnelle ou personnelle.", high: "Impact fonctionnel important dans plusieurs domaines de vie." }
+    },
+    pdfTitle: "Rapport de dépistage TDAH adulte",
+    pdfSub: "Questionnaire de dépistage — Résultats personnels",
+    pdfDisclaimer: "AVERTISSEMENT : Ce rapport est un outil de dépistage et ne constitue pas un diagnostic médical. Seul un professionnel de santé qualifié (psychiatre, neuropsychologue) peut établir un diagnostic de TDAH. Si vos scores sont élevés, consultez votre médecin.",
+    pdfDate: "Date",
+    pdfScores: "Détail des scores",
+    pdfProfile: "Profil détecté",
+    pdfFooter: "adhd-screen.fr — Outil de dépistage informatif, sans valeur diagnostique."
+  },
+  en: {
+    eyebrow: "Screening · Adult · ADHD",
+    h1: 'Does your brain work <em>differently</em>?',
+    sub: "30 questions to explore whether your attention difficulties or impulsivity align with adult ADHD criteria. Instant results, downloadable report.",
+    start: "Start the questionnaire",
+    m1: "30 questions",
+    m2: "~5 minutes",
+    m3: "Anonymous, no account needed",
+    disclaimerHome: "<strong>Disclaimer:</strong> this questionnaire is a screening tool, <em>not a medical diagnosis</em>. Only a psychiatrist or neuropsychologist can diagnose ADHD. If your results concern you, consult a healthcare professional.",
+    sections: ["Inattention", "Hyperactivity / Impulsivity", "Functional Impact"],
+    opts: ["Never / Rarely", "Sometimes", "Often", "Very often"],
+    back: "Previous",
+    next: "Next",
+    finish: "See my results",
+    progressIn: "Inattention",
+    progressHI: "Hyperactivity / Impulsivity",
+    progressFX: "Functional impact",
+    resultTitle: "Your Screening Results",
+    resultSub: "Based on DSM-5 criteria — Adults",
+    totalLabel: "Overall score",
+    inLabel: "Inattention",
+    hiLabel: "Hyperactivity/Impulsivity",
+    fxLabel: "Functional impact",
+    downloadBtn: "Download PDF report",
+    restartBtn: "Start over",
+    disclaimerResult: "<strong>Important note:</strong> this score is indicative only. It does not replace a full clinical assessment. If your score is high, talk to your GP or request a neuropsychological evaluation.",
+    profiles: {
+      low: { tag: "Few signals", title: "Profile not strongly suggestive of ADHD", desc: "Your responses do not suggest a significant presence of ADHD symptoms. This does not rule out other difficulties — anxiety, sleep issues, or burnout can produce similar patterns." },
+      mod_in: { tag: "Moderate signals", title: "Profile suggestive of predominantly inattentive ADHD", desc: "You show a notable level of attention difficulties without marked hyperactivity. This profile corresponds to ADHD-PI (Predominantly Inattentive), which is frequently underdiagnosed in adults." },
+      mod_hi: { tag: "Moderate signals", title: "Profile suggestive of predominantly hyperactive-impulsive ADHD", desc: "Your difficulties relate mainly to restlessness, impulsivity, and behavioural regulation. This profile may benefit from a specialised evaluation." },
+      mod_c: { tag: "Moderate signals", title: "Profile suggestive of combined-type ADHD", desc: "You show difficulties in both attention and hyperactivity/impulsivity. Combined ADHD is one of the most common profiles and warrants thorough professional assessment." },
+      high_in: { tag: "High signals", title: "Profile strongly suggestive of inattentive ADHD", desc: "Your inattention scores are significantly elevated. These difficulties can have a major impact on your professional and personal life. A specialised consultation is strongly recommended." },
+      high_hi: { tag: "High signals", title: "Profile strongly suggestive of hyperactive-impulsive ADHD", desc: "Your hyperactivity and impulsivity scores are significantly elevated. These difficulties are impairing and warrant clinical evaluation by a specialist." },
+      high_c: { tag: "High signals", title: "Profile strongly suggestive of combined ADHD", desc: "Your scores are elevated across both dimensions — inattention and hyperactivity/impulsivity — as well as functional impact. A comprehensive neuropsychological assessment is strongly recommended." },
+    },
+    secDescs: {
+      in: { low: "Few attention difficulties detected.", mod: "Notable attention difficulties (forgetfulness, distractibility, disorganisation).", high: "Marked attention difficulties affecting daily life." },
+      hi: { low: "Little agitation or impulsivity reported.", mod: "Moderate agitation and/or impulsivity.", high: "Significant hyperactivity and impulsivity." },
+      fx: { low: "Low impact on daily functioning.", mod: "Moderate impact on professional or personal life.", high: "Significant functional impact across several areas of life." }
+    },
+    pdfTitle: "Adult ADHD Screening Report",
+    pdfSub: "Personal Screening Results",
+    pdfDisclaimer: "DISCLAIMER: This report is a screening tool and does not constitute a medical diagnosis. Only a qualified healthcare professional (psychiatrist, neuropsychologist) can diagnose ADHD. If your scores are high, consult your doctor.",
+    pdfDate: "Date",
+    pdfScores: "Score breakdown",
+    pdfProfile: "Detected profile",
+    pdfFooter: "adhd-screen — Informational screening tool, no diagnostic value."
+  }
+};
+
+// ─── QUESTIONS ───────────────────────────────────────────────────────────────
+const QUESTIONS = {
+  fr: [
+    // INATTENTION (0-11)
+    { s: 0, t: "Vous avez du mal à maintenir votre attention sur des tâches longues ou répétitives." },
+    { s: 0, t: "Vous faites des erreurs d'inattention dans votre travail ou vos activités quotidiennes." },
+    { s: 0, t: "On vous dit souvent que vous ne semblez pas écouter quand on vous parle directement." },
+    { s: 0, t: "Vous ne terminez pas ce que vous commencez (travaux, tâches ménagères, projets professionnels)." },
+    { s: 0, t: "Vous avez du mal à organiser vos tâches ou activités dans un ordre logique." },
+    { s: 0, t: "Vous évitez ou reportez les tâches qui demandent un effort mental soutenu." },
+    { s: 0, t: "Vous perdez régulièrement des objets nécessaires (clés, téléphone, documents)." },
+    { s: 0, t: "Vous êtes facilement distrait(e) par des stimuli extérieurs (bruits, mouvements, pensées parasites)." },
+    { s: 0, t: "Vous oubliez des rendez-vous, échéances ou engagements quotidiens." },
+    { s: 0, t: "Vous vous perdez dans vos pensées et « déconnectez » sans vous en rendre compte." },
+    { s: 0, t: "Vous avez du mal à lire un long texte sans relire plusieurs fois la même phrase." },
+    { s: 0, t: "Vous commencez plusieurs projets en même temps sans en finir aucun." },
+    // HYPERACTIVITY / IMPULSIVITY (12-21)
+    { s: 1, t: "Vous ressentez un besoin constant de bouger ou d'être en activité." },
+    { s: 1, t: "Vous bougez les mains, les pieds ou vous vous agitez sur votre siège." },
+    { s: 1, t: "Vous avez du mal à rester assis(e) longtemps dans une réunion ou au restaurant." },
+    { s: 1, t: "Vous parlez excessivement ou avez du mal à vous arrêter une fois lancé(e)." },
+    { s: 1, t: "Vous répondez avant que l'interlocuteur ait fini sa question." },
+    { s: 1, t: "Vous avez du mal à attendre votre tour dans une file ou une conversation." },
+    { s: 1, t: "Vous interrompez les autres ou terminez leurs phrases." },
+    { s: 1, t: "Vous prenez des décisions impulsives que vous regrettez ensuite." },
+    { s: 1, t: "Vous avez un sentiment intérieur d'agitation permanente, même au calme." },
+    { s: 1, t: "Votre humeur change rapidement, souvent sans raison apparente." },
+    // FUNCTIONAL IMPACT (22-29)
+    { s: 2, t: "Vos difficultés d'attention ou d'impulsivité affectent votre performance professionnelle." },
+    { s: 2, t: "Vous avez du mal à gérer votre temps et à respecter les délais." },
+    { s: 2, t: "Vos difficultés créent des tensions dans vos relations proches (famille, couple, amis)." },
+    { s: 2, t: "Vous avez une mauvaise estime de vous-même liée à vos difficultés de fonctionnement." },
+    { s: 2, t: "Vous avez du mal à réguler vos émotions face au stress ou à la frustration." },
+    { s: 2, t: "Vous avez des difficultés avec l'argent (impulsions d'achat, oublis de factures)." },
+    { s: 2, t: "Votre sommeil est perturbé (tête qui tourne, pensées qui ne s'arrêtent pas au coucher)." },
+    { s: 2, t: "Ces difficultés sont présentes depuis l'enfance ou l'adolescence." },
+  ],
+  en: [
+    { s: 0, t: "You have difficulty sustaining attention on long or repetitive tasks." },
+    { s: 0, t: "You make careless mistakes at work or in daily activities." },
+    { s: 0, t: "People often tell you that you don't seem to be listening when spoken to directly." },
+    { s: 0, t: "You don't follow through on tasks you start (work, chores, professional projects)." },
+    { s: 0, t: "You struggle to organise tasks or activities in a logical order." },
+    { s: 0, t: "You avoid or postpone tasks requiring sustained mental effort." },
+    { s: 0, t: "You regularly misplace items you need (keys, phone, documents)." },
+    { s: 0, t: "You are easily distracted by external stimuli (noises, movement, intrusive thoughts)." },
+    { s: 0, t: "You forget appointments, deadlines, or daily commitments." },
+    { s: 0, t: "You lose track of your thoughts and 'zone out' without realising it." },
+    { s: 0, t: "You struggle to read a long text without re-reading the same sentence several times." },
+    { s: 0, t: "You start multiple projects at the same time without finishing any of them." },
+    { s: 1, t: "You feel a constant need to move or stay active." },
+    { s: 1, t: "You fidget with your hands, feet, or squirm in your seat." },
+    { s: 1, t: "You find it hard to stay seated for long periods in a meeting or at a restaurant." },
+    { s: 1, t: "You talk excessively or find it hard to stop once you've started." },
+    { s: 1, t: "You answer before the other person has finished their question." },
+    { s: 1, t: "You have difficulty waiting your turn in a queue or conversation." },
+    { s: 1, t: "You interrupt others or finish their sentences." },
+    { s: 1, t: "You make impulsive decisions that you later regret." },
+    { s: 1, t: "You have a persistent inner sense of restlessness, even in calm situations." },
+    { s: 1, t: "Your mood shifts quickly, often for no apparent reason." },
+    { s: 2, t: "Your attention or impulsivity difficulties affect your work performance." },
+    { s: 2, t: "You struggle to manage your time and meet deadlines." },
+    { s: 2, t: "Your difficulties create tension in your close relationships (family, partner, friends)." },
+    { s: 2, t: "You have low self-esteem related to your functioning difficulties." },
+    { s: 2, t: "You struggle to regulate your emotions under stress or frustration." },
+    { s: 2, t: "You have difficulties with money (impulse purchases, forgetting bills)." },
+    { s: 2, t: "Your sleep is disturbed (racing thoughts, mind that won't switch off at bedtime)." },
+    { s: 2, t: "These difficulties have been present since childhood or adolescence." },
+  ]
+};
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let lang = 'fr';
+let currentQ = 0;
+let answers = new Array(30).fill(null);
+
+function setLang(l) {
+  lang = l;
+  document.getElementById('btn-fr').classList.toggle('active', l === 'fr');
+  document.getElementById('btn-en').classList.toggle('active', l === 'en');
+  document.documentElement.lang = l;
+  applyTranslations();
+}
+
+function applyTranslations() {
+  const t = T[lang];
+  document.querySelectorAll('[data-t]').forEach(el => {
+    const key = el.getAttribute('data-t');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+}
+
+// ─── QUIZ ─────────────────────────────────────────────────────────────────────
+function startQuiz() {
+  currentQ = 0;
+  answers = new Array(30).fill(null);
+  buildQuiz();
+  showScreen('quiz');
+}
+
+function buildQuiz() {
+  const t = T[lang];
+  const qs = QUESTIONS[lang];
+  const body = document.getElementById('quiz-body');
+  body.innerHTML = '';
+
+  qs.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'question-block' + (i === 0 ? ' active' : '');
+    div.id = 'q-' + i;
+
+    const sectionNames = [t.progressIn, t.progressHI, t.progressFX];
+    div.innerHTML = `
+      <p class="q-text">${q.t}</p>
+      <div class="options-grid">
+        ${t.opts.map((o, v) => `
+          <button class="option-btn" onclick="selectAnswer(${i}, ${v})" id="opt-${i}-${v}">
+            <span class="opt-text">${o}</span>
+          </button>`).join('')}
+      </div>
+      <div class="quiz-nav" style="justify-content:flex-start">
+        <button class="btn-back" onclick="goBack()" ${i === 0 ? 'style="visibility:hidden"' : ''}>${t.back}</button>
+      </div>`;
+    body.appendChild(div);
+  });
+
+  updateProgress();
+}
+
+function selectAnswer(qIdx, val) {
+  answers[qIdx] = val;
+  document.querySelectorAll(`[id^="opt-${qIdx}-"]`).forEach(b => b.classList.remove('selected'));
+  document.getElementById(`opt-${qIdx}-${val}`).classList.add('selected');
+  // Auto-advance after short delay so selection is visible
+  setTimeout(() => goNext(qIdx), 320);
+}
+
+function goNext(i) {
+  if (answers[i] === null) return;
+  if (i === 29) { showResults(); return; }
+  document.getElementById('q-' + i).classList.remove('active');
+  currentQ = i + 1;
+  document.getElementById('q-' + currentQ).classList.add('active');
+  updateProgress();
+  window.scrollTo({ top: 56, behavior: 'smooth' });
+}
+
+function goBack() {
+  if (currentQ === 0) return;
+  document.getElementById('q-' + currentQ).classList.remove('active');
+  currentQ--;
+  document.getElementById('q-' + currentQ).classList.add('active');
+  updateProgress();
+  window.scrollTo({ top: 56, behavior: 'smooth' });
+}
+
+function updateProgress() {
+  const t = T[lang];
+  const qs = QUESTIONS[lang];
+  const pct = ((currentQ) / 30) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-count').textContent = (currentQ + 1) + ' / 30';
+  const sectionNames = [t.progressIn, t.progressHI, t.progressFX];
+  document.getElementById('progress-section-label').textContent = sectionNames[qs[currentQ].s];
+}
+
+// ─── RESULTS ──────────────────────────────────────────────────────────────────
+function calcScores() {
+  let inScore = 0, hiScore = 0, fxScore = 0;
+  for (let i = 0; i < 12; i++) inScore += (answers[i] || 0);
+  for (let i = 12; i < 22; i++) hiScore += (answers[i] || 0);
+  for (let i = 22; i < 30; i++) fxScore += (answers[i] || 0);
+  const total = inScore + hiScore + fxScore;
+  return { inScore, hiScore, fxScore, total };
+}
+
+function getProfile(scores) {
+  const { inScore, hiScore, fxScore } = scores;
+  const inMax = 36, hiMax = 30, fxMax = 24;
+  const inPct = inScore / inMax;
+  const hiPct = hiScore / hiMax;
+  const inHigh = inPct >= 0.55;
+  const hiHigh = hiPct >= 0.55;
+  const inMod = inPct >= 0.35;
+  const hiMod = hiPct >= 0.35;
+
+  if (!inMod && !hiMod) return 'low';
+  if (inHigh && hiHigh) return 'high_c';
+  if (inHigh && !hiMod) return 'high_in';
+  if (hiHigh && !inMod) return 'high_hi';
+  if (inMod && hiMod) return 'mod_c';
+  if (inMod) return 'mod_in';
+  return 'mod_hi';
+}
+
+function getLevelKey(score, max) {
+  const pct = score / max;
+  if (pct < 0.35) return 'low';
+  if (pct < 0.6) return 'mod';
+  return 'high';
+}
+
+function showResults() {
+  const t = T[lang];
+  const scores = calcScores();
+  const profileKey = getProfile(scores);
+  const profile = t.profiles[profileKey];
+  const { inScore, hiScore, fxScore, total } = scores;
+  const totalMax = 90;
+
+  const tagClass = profileKey === 'low' ? 'low' : (profileKey.startsWith('high') ? 'high' : 'moderate');
+  const inLvl = getLevelKey(inScore, 36);
+  const hiLvl = getLevelKey(hiScore, 30);
+  const fxLvl = getLevelKey(fxScore, 24);
+
+  document.getElementById('result-content').innerHTML = `
+    <div class="result-header">
+      <h2>${t.resultTitle}</h2>
+      <p>${t.resultSub}</p>
+    </div>
+    <div class="score-grid">
+      <div class="score-card">
+        <div class="sc-label">${t.totalLabel}</div>
+        <div class="sc-value" id="anim-total">0 <span>/ ${totalMax}</span></div>
+        <div class="sc-bar"><div class="sc-bar-fill" id="bar-total" style="width:0%"></div></div>
+      </div>
+      <div class="score-card">
+        <div class="sc-label">${t.inLabel}</div>
+        <div class="sc-value" id="anim-in">0 <span>/ 36</span></div>
+        <div class="sc-bar"><div class="sc-bar-fill" id="bar-in" style="width:0%"></div></div>
+      </div>
+      <div class="score-card">
+        <div class="sc-label">${t.hiLabel}</div>
+        <div class="sc-value" id="anim-hi">0 <span>/ 30</span></div>
+        <div class="sc-bar"><div class="sc-bar-fill" id="bar-hi" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div class="result-profile">
+      <span class="profile-tag ${tagClass}">${profile.tag}</span>
+      <div class="profile-title">${profile.title}</div>
+      <p class="profile-desc">${profile.desc}</p>
+    </div>
+    <div class="result-sections">
+      <div class="result-section-card">
+        <div class="rsc-title">${t.inLabel}</div>
+        <div class="rsc-score">${inScore} <span>/ 36</span></div>
+        <div class="rsc-bar"><div class="rsc-bar-fill" style="width:${(inScore/36)*100}%; background:${inLvl==='high'?'var(--warn)':inLvl==='mod'?'#E67E22':'var(--ok)'}"></div></div>
+        <p class="rsc-desc">${t.secDescs.in[inLvl]}</p>
+      </div>
+      <div class="result-section-card">
+        <div class="rsc-title">${t.hiLabel}</div>
+        <div class="rsc-score">${hiScore} <span>/ 30</span></div>
+        <div class="rsc-bar"><div class="rsc-bar-fill" style="width:${(hiScore/30)*100}%; background:${hiLvl==='high'?'var(--warn)':hiLvl==='mod'?'#E67E22':'var(--ok)'}"></div></div>
+        <p class="rsc-desc">${t.secDescs.hi[hiLvl]}</p>
+      </div>
+    </div>
+    <div class="result-sections" style="grid-template-columns:1fr">
+      <div class="result-section-card">
+        <div class="rsc-title">${t.fxLabel}</div>
+        <div class="rsc-score">${fxScore} <span>/ 24</span></div>
+        <div class="rsc-bar"><div class="rsc-bar-fill" style="width:${(fxScore/24)*100}%; background:${fxLvl==='high'?'var(--warn)':fxLvl==='mod'?'#E67E22':'var(--ok)'}"></div></div>
+        <p class="rsc-desc">${t.secDescs.fx[fxLvl]}</p>
+      </div>
+    </div>
+    <div class="result-disclaimer">${t.disclaimerResult}</div>
+    <div class="result-actions">
+      <button class="btn-pdf" onclick="generatePDF()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        ${t.downloadBtn}
+      </button>
+      <button class="btn-restart" onclick="restartQuiz()">${t.restartBtn}</button>
+    </div>`;
+
+  showScreen('result');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Animate counters
+  setTimeout(() => {
+    animateCounter('anim-total', total, totalMax, 'bar-total');
+    animateCounter('anim-in', inScore, 36, 'bar-in');
+    animateCounter('anim-hi', hiScore, 30, 'bar-hi');
+  }, 200);
+}
+
+function animateCounter(elId, target, max, barId) {
+  const el = document.getElementById(elId);
+  const bar = document.getElementById(barId);
+  if (!el) return;
+  let current = 0;
+  const step = Math.max(1, Math.floor(target / 30));
+  const interval = setInterval(() => {
+    current = Math.min(current + step, target);
+    el.innerHTML = `${current} <span>/ ${max}</span>`;
+    if (bar) bar.style.width = ((current / max) * 100) + '%';
+    if (current >= target) clearInterval(interval);
+  }, 25);
+}
+
+function restartQuiz() {
+  showScreen('home');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── PDF GENERATION ───────────────────────────────────────────────────────────
+function generatePDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const t = T[lang];
+  const scores = calcScores();
+  const profileKey = getProfile(scores);
+  const profile = t.profiles[profileKey];
+  const { inScore, hiScore, fxScore, total } = scores;
+
+  const petrol = [27, 79, 90];
+  const petrolMid = [42, 112, 128];
+  const white = [255, 255, 255];
+  const grey = [100, 120, 125];
+  const dark = [15, 45, 52];
+  const softBg = [240, 248, 250];
+
+  const W = 210, pad = 20;
+  let y = 0;
+
+  // Header band
+  doc.setFillColor(...petrol);
+  doc.rect(0, 0, W, 42, 'F');
+  doc.setTextColor(...white);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(20);
+  doc.text('TDAKOI', pad, 18);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.text(t.pdfTitle, pad, 27);
+  doc.setFontSize(8);
+  doc.setTextColor(180, 220, 230);
+  doc.text(`${t.pdfDate} : ${new Date().toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-GB')}`, pad, 35);
+  y = 52;
+
+  // Scores
+  doc.setTextColor(...dark);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(11);
+  doc.text(t.pdfScores, pad, y);
+  y += 6;
+
+  const scoreRows = [
+    { label: t.totalLabel, score: total, max: 90 },
+    { label: t.inLabel, score: inScore, max: 36 },
+    { label: t.hiLabel, score: hiScore, max: 30 },
+    { label: t.fxLabel, score: fxScore, max: 24 },
+  ];
+  const barW = 80;
+  scoreRows.forEach(row => {
+    doc.setFillColor(...softBg);
+    doc.roundedRect(pad, y, W - pad * 2, 14, 2, 2, 'F');
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(...grey);
+    doc.text(row.label, pad + 4, y + 9);
+    doc.setTextColor(...petrol);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`${row.score} / ${row.max}`, pad + 75, y + 9);
+    // Bar
+    const bx = pad + 100;
+    doc.setFillColor(220, 230, 232);
+    doc.rect(bx, y + 5, barW, 4, 'F');
+    doc.setFillColor(...petrolMid);
+    doc.rect(bx, y + 5, (row.score / row.max) * barW, 4, 'F');
+    y += 20;
+  });
+  y += 10;
+
+  // Profile
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(11);
+  doc.setTextColor(...dark);
+  doc.text(t.pdfProfile, pad, y);
+  y += 8;
+
+  doc.setFillColor(...petrol);
+  doc.roundedRect(pad, y, W - pad * 2, 10, 2, 2, 'F');
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(9);
+  doc.setTextColor(...white);
+  doc.text(profile.tag.toUpperCase(), pad + 4, y + 6.5);
+  y += 16;
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  doc.setTextColor(...petrol);
+  doc.text(profile.title, pad, y);
+  y += 8;
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9);
+  doc.setTextColor(...grey);
+  const descLines = doc.splitTextToSize(profile.desc, W - pad * 2);
+  doc.text(descLines, pad, y);
+  y += descLines.length * 5.5 + 14;
+
+  // Disclaimer
+  doc.setFillColor(255, 249, 240);
+  const disclaimerText = lang === 'fr'
+    ? "AVERTISSEMENT : Ce rapport est un outil de dépistage et ne constitue pas un diagnostic médical. Seul un professionnel de santé qualifié (psychiatre, neuropsychologue) peut établir un diagnostic de TDAH. Si vos scores sont élevés, consultez votre médecin."
+    : "DISCLAIMER: This report is a screening tool and does not constitute a medical diagnosis. Only a qualified healthcare professional (psychiatrist, neuropsychologist) can diagnose ADHD. If your scores are high, consult your doctor.";
+  const dLines = doc.splitTextToSize(disclaimerText, W - pad * 2 - 8);
+  doc.roundedRect(pad, y, W - pad * 2, dLines.length * 5.5 + 10, 2, 2, 'F');
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8.5);
+  doc.setTextColor(107, 85, 0);
+  doc.text(dLines, pad + 4, y + 7);
+  y += dLines.length * 5.5 + 18;
+
+  const pdfBlob = doc.output('blob');
+  const url = URL.createObjectURL(pdfBlob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `TDAKOI-${new Date().toISOString().slice(0,10)}.pdf`;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 1000);
+}
+
+// Init
+applyTranslations();
+</script>
+</body>
+</html>
